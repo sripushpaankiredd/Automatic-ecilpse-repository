@@ -1,90 +1,91 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.io.*" %>
+<!DOCTYPE html>
 <html>
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Registration Form</title>
+</head>
 <body>
-
-<body>
-<form>
 <center>
-<table>
-<tr>
-<h3 style="color:blue">Registration Form</h3>
-</tr>
-<tr>
-<td>Firstname</td>
+    <h2 style="color: red"><u>Registration Form</u></h2>
 
-<td><input type="text" name ="fname" /></td>
+    <!-- Handle form submission -->
+    <%
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirmPassword");
+        String gender = request.getParameter("gender");
+        String country = request.getParameter("country");
 
-</tr>
-<tr>
-<td>Lastname:</td>
+        boolean isSubmitted = firstName != null && lastName != null && email != null && password != null && confirmPassword != null && gender != null && country != null;
 
-<td><input type="text" name="lname" /></td>
+        if (isSubmitted) {
+            if (!password.equals(confirmPassword)) {
+                out.println("<p style='color: red;'>Passwords do not match! Please try again.</p>");
+            } else {
+                out.println("<h3>Registration Successfully....!!!1!</h3>");
+                out.println("<p><strong>First Name:</strong> " + firstName + "</p>");
+                out.println("<p><strong>Last Name:</strong> " + lastName + "</p>");
+                out.println("<p><strong>Email:</strong> " + email + "</p>");
+                out.println("<p><strong>Gender:</strong> " + gender + "</p>");
+                out.println("<p><strong>Country:</strong> " + country + "</p>");
+            }
+        }
+    %>
 
-</tr>
-<tr>
-<td>Course:</td>
-
-<td><select name="scourse">
-
-<option value="Course">Course</option>
-<option value="CSE">CSE</option>
-<option value="CB">CB</option>
-<option value="DS">DS</option>
-<option value="ECE">ECE</option>
-<option value="EEE">EEE</option>
-
-</select></td>
-</tr>
-<tr>
-<td>Gender:</td>
-
-<td><input type="radio" name="gender" value="male"
-
-/> Male <br>
-<input type="radio" name="gender"
-value="female" /> Female <br>
-<input type="radio" name="gender"
-value="other" /> Other
-</td>
-</tr>
-<tr>
-<td>Phone:</td>
-
-<td> <input type="text" name="country code"
-
-value="+91" size='2'/>
-<input type="text" name="phone" size="10" />
-<br> <br>
-</td>
-</tr>
-<tr>
-<td> Address</td>
-
-<td><textarea cols="60" rows="5" name="address">
-
-</textarea></td>
-</tr>
-<tr>
-<td>Email:</td>
-
-<td><input type="email" name="email" /></td>
-
-</tr>
-<tr>
-<td>Password:</td>
-
-<td><input type="Password" name="pass"></td>
-
-</tr>
-<tr>
-<td>Re-type password:</td>
-<td><input type="Password" id="repass">
-</td>
-</tr>
-<tr>
-<td><input type="submit" value="submit"/></td>
-</tr>
-</table>
+    <!-- Display form only if not submitted or if there's an error -->
+    <% if (!isSubmitted || !password.equals(confirmPassword)) { %>
+    <form method="post">
+        <table>
+            <tr>
+                <td>First Name:</td>
+                <td><input type="text" name="firstName" required></td>
+            </tr>
+            <tr>
+                <td>Last Name:</td>
+                <td><input type="text" name="lastName" required></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><input type="email" name="email" required></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type="password" name="password" required></td>
+            </tr>
+            <tr>
+                <td>Confirm Password:</td>
+                <td><input type="password" name="confirmPassword" required></td>
+            </tr>
+            <tr>
+                <td>Gender:</td>
+                <td>
+                    <input type="radio" name="gender" value="Male" required> Male
+                    <input type="radio" name="gender" value="Female" required> Female
+                    <input type="radio" name="gender" value="Others" required> others
+                </td>
+            </tr>
+            <tr>
+                <td>Country:</td>
+                <td>
+                    <select name="country" required>
+                        <option value="India">India</option>
+                        <option value="USA">USA</option>
+                        <option value="UK">UK</option>
+                        <option value="Canada">Canada</option>
+                        
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Submit"></td>
+            </tr>
+        </table>
+    </form>
+    <% } %>
 </center>
-</form>
 </body>
 </html>
