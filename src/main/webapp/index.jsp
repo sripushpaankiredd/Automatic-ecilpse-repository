@@ -9,6 +9,7 @@
 <body>
 <center>
     <h2 style="color: red"><u>Registration Form</u></h2>
+    <h2 style="color: Blue"><u>Please Enter the Details Below</u></h2>
 
     <!-- Handle form submission -->
     <%
